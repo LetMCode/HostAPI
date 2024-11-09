@@ -60,6 +60,32 @@ app.get('/api/cartUser', (req, res) => {
   });
 });
 
+app.post('/api/cartUser', (req, res) => {
+  const newItem = req.body; // Lấy dữ liệu từ body của yêu cầu
+
+  const filePath = path.join(__dirname, './product.json');
+
+  fs.readFile(filePath, 'utf8', (err, data) => {
+    if (err) {
+      return res.status(500).json({ error: 'Failed to read the JSON file' });
+    }
+
+    const jsonData = JSON.parse(data);
+    
+    // Giả sử bạn muốn thêm item vào giỏ hàng
+    jsonData.cartUser.push(newItem);
+
+    // Lưu lại dữ liệu vào file
+    fs.writeFile(filePath, JSON.stringify(jsonData, null, 2), (err) => {
+      if (err) {
+        return res.status(500).json({ error: 'Failed to write the JSON file' });
+      }
+
+      return res.status(200).json({ message: 'Item added successfully' });
+    });
+  });
+});
+
 app.listen(port, () => {
   console.log(`${port}`)
   console.log(`Server running on port https://hostapi-g350.onrender.com`);
