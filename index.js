@@ -60,6 +60,28 @@ app.get('/api/cartUser', (req, res) => {
   });
 });
 
+app.get('/api/cartUser/:id', (req, res) => {
+  const {id} = req.id;
+  const filePath = path.join(__dirname, './product.json'); // Đảm bảo đúng đường dẫn tới file api.json
+
+  fs.readFile(filePath, 'utf8', (err, data) => {
+    if (err) {
+      return res.status(500).json({ error: 'Failed to read the JSON file' });
+    }
+
+    // Trả về dữ liệu JSON từ file
+    const jsonData = JSON.parse(data);
+
+    const item = jsonData.cartUser.find(item => item.id === id)    
+
+    if (!item) {
+      return res.status(404).json({ error: 'Item not found' });
+    }
+
+    // Trả về item nếu tìm thấy
+    res.status(200).json(item);
+  });
+});
 
 
 app.post('/api/cartUser', (req, res) => {
