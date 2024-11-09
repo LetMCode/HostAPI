@@ -6,7 +6,7 @@ const port = process.env.PORT || 3000;
 
 // Đọc file api.json
 app.get('/api', (req, res) => {
-  const filePath = path.join(__dirname, 'product.json'); // Đảm bảo đúng đường dẫn tới file api.json
+  const filePath = path.join(__dirname, './product.json'); // Đảm bảo đúng đường dẫn tới file api.json
 
   fs.readFile(filePath, 'utf8', (err, data) => {
     if (err) {
