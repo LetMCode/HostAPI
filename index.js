@@ -112,7 +112,6 @@ app.post('/api/cartUser', (req, res) => {
 
 app.delete('/api/cartUser/:id', (req, res) => {
   const { id } = req.params;  // Lấy id từ URL
-
   const filePath = path.join(__dirname, './product.json');
 
   fs.readFile(filePath, 'utf8', (err, data) => {
