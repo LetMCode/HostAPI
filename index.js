@@ -2,12 +2,19 @@ const express = require('express');
 const fs = require('fs');
 const morgan = require('morgan');
 const path = require('path');
+const cors = require('cors');
 const app = express();
 const port = process.env.PORT || 3000;
 
 // app.use(morgan('combined'))
 
 // Đọc file api.json
+app.use(cors());
+
+// Hoặc, bạn có thể chỉ định cho phép yêu cầu từ một miền cụ thể:
+app.use(cors({
+  origin: 'https://letmcode.github.io/Project-CT188-backup'
+}));
 
 app.get('/api/page/:id', (req, res) => {
     const { id } = req.params;
