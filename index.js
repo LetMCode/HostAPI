@@ -127,14 +127,15 @@ app.delete('/api/cartUser/:id', (req, res) => {
     }
 
     // Tìm item theo id và xóa khỏi cartUser
-    const updatedCartUser = jsonData.cartUser.findIndex(item => item.id != id);
+    const updatedCartUser = jsonData.cartUser.filter(item => item.id != id);
 
     // Nếu không tìm thấy item để xóa
     if (updatedCartUser.length === jsonData.cartUser.length) {
       return res.status(404).json({ error: 'Item not found' });
     }
 
-    jsonData.cartUser.splice(index, 1);
+    // Cập nhật lại mảng cartUser
+    jsonData.cartUser = updatedCartUser;
 
     // Ghi lại thay đổi vào tệp JSON
     fs.writeFile(filePath, JSON.stringify(jsonData, null, 2), (err) => {
