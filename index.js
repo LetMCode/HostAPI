@@ -111,7 +111,7 @@ app.post('/api/cartUser', (req, res) => {
 });
 
 app.delete('/api/cartUser/:id', (req, res) => {
-  const { id } = req.params;  // Lấy id từ URL
+  const { id } = req.params; // Lấy id từ URL
   const filePath = path.join(__dirname, './product.json');
 
   fs.readFile(filePath, 'utf8', (err, data) => {
@@ -126,16 +126,16 @@ app.delete('/api/cartUser/:id', (req, res) => {
       return res.status(500).json({ error: 'Invalid cartUser format in JSON file' });
     }
 
-    // Tìm item theo id và xóa khỏi cartUser
-    const updatedCartUser = jsonData.cartUser.filter(item => item.id != id);
+    // Tìm vị trí của item đầu tiên có id khớp
+    const index = jsonData.cartUser.findIndex(item => item.id == id);
 
     // Nếu không tìm thấy item để xóa
-    if (updatedCartUser.length === jsonData.cartUser.length) {
+    if (index === -1) {
       return res.status(404).json({ error: 'Item not found' });
     }
 
-    // Cập nhật lại mảng cartUser
-    jsonData.cartUser = updatedCartUser;
+    // Xóa duy nhất một item tại vị trí tìm thấy
+    jsonData.cartUser.splice(index, 1);
 
     // Ghi lại thay đổi vào tệp JSON
     fs.writeFile(filePath, JSON.stringify(jsonData, null, 2), (err) => {
