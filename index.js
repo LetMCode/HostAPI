@@ -60,6 +60,8 @@ app.get('/api/cartUser', (req, res) => {
   });
 });
 
+
+
 app.post('/api/cartUser', (req, res) => {
   const newItem = req.body; // Lấy dữ liệu từ body của yêu cầu
 
@@ -86,6 +88,44 @@ app.post('/api/cartUser', (req, res) => {
   });
 });
 
+app.delete('/api/cartUser/:id', (req, res) => {
+  const { id } = req.params;  // Lấy id từ URL
+
+  const filePath = path.join(__dirname, './product.json');
+
+  fs.readFile(filePath, 'utf8', (err, data) => {
+    if (err) {
+      return res.status(500).json({ error: 'Failed to read the JSON file' });
+    }
+
+    const jsonData = JSON.parse(data);
+
+    // Kiểm tra nếu cartUser tồn tại và là mảng
+    if (!Array.isArray(jsonData.cartUser)) {
+      return res.status(500).json({ error: 'Invalid cartUser format in JSON file' });
+    }
+
+    // Tìm item theo id và xóa khỏi cartUser
+    const updatedCartUser = jsonData.cartUser.filter(item => item.id != id);
+
+    // Nếu không tìm thấy item để xóa
+    if (updatedCartUser.length === jsonData.cartUser.length) {
+      return res.status(404).json({ error: 'Item not found' });
+    }
+
+    // Cập nhật lại mảng cartUser
+    jsonData.cartUser = updatedCartUser;
+
+    // Ghi lại thay đổi vào tệp JSON
+    fs.writeFile(filePath, JSON.stringify(jsonData, null, 2), (err) => {
+      if (err) {
+        return res.status(500).json({ error: 'Failed to write the JSON file' });
+      }
+
+      return res.status(200).json({ message: 'Item deleted successfully' });
+    });
+  });
+});
 app.listen(port, () => {
   console.log(`${port}`)
   console.log(`Server running on port https://hostapi-g350.onrender.com`);
