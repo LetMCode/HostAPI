@@ -121,7 +121,7 @@ app.delete('/api/cartUser/:id', (req, res) => {
 
     const jsonData = JSON.parse(data);
 
-    // Kiểm tra nếu cartUser tồn tại và là mảng
+    // Kiểm tra nếu cartUser tồn tại và là mản
     if (!Array.isArray(jsonData.cartUser)) {
       return res.status(500).json({ error: 'Invalid cartUser format in JSON file' });
     }
