@@ -134,7 +134,6 @@ app.delete('/api/cartUser/:id', (req, res) => {
       return res.status(404).json({ error: 'Item not found' });
     }
 
-    // Xóa duy nhất một item tại vị trí tìm thấy
     jsonData.cartUser.splice(index, 1);
 
     // Ghi lại thay đổi vào tệp JSON
