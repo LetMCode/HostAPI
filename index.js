@@ -61,7 +61,7 @@ app.get('/api/cartUser', (req, res) => {
 });
 
 app.get('/api/cartUser/:id', (req, res) => {
-  const {id} = req.id;
+  const {id} = req.params;
   const filePath = path.join(__dirname, './product.json'); // Đảm bảo đúng đường dẫn tới file api.json
 
   fs.readFile(filePath, 'utf8', (err, data) => {
