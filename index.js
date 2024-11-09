@@ -34,7 +34,7 @@ app.get('/api/page/:id', (req, res) => {
   
       // Trả về dữ liệu JSON từ file
       const jsonData = JSON.parse(data);
-      return res.json(jsonData.cartUser);
+      return res.json(jsonData.product);
     });
   });
   
