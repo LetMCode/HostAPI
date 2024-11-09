@@ -12,9 +12,9 @@ const port = process.env.PORT || 3000;
 app.use(cors());
 
 // Hoặc, bạn có thể chỉ định cho phép yêu cầu từ một miền cụ thể:
-app.use(cors({
-  origin: 'https://letmcode.github.io/Project-CT188-backup'
-}));
+// app.use(cors({
+//   origin: 'https://letmcode.github.io/Project-CT188-backup'
+// }));
 
 app.get('/api/page/:id', (req, res) => {
     const { id } = req.params;
