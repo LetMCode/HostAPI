@@ -10,7 +10,7 @@ const port = process.env.PORT || 3000;
 
 // Đọc file api.json
 app.use(cors());
-
+app.use(express.json());
 // Hoặc, bạn có thể chỉ định cho phép yêu cầu từ một miền cụ thể:
 // app.use(cors({
 //   origin: 'https://letmcode.github.io/Project-CT188-backup'
