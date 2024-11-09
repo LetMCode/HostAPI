@@ -1,8 +1,11 @@
 const express = require('express');
 const fs = require('fs');
+const morgan = require('morgan');
 const path = require('path');
 const app = express();
 const port = process.env.PORT || 3000;
+
+app.use(morgan('combined'))
 
 // Đọc file api.json
 app.get('/api', (req, res) => {
@@ -14,7 +17,7 @@ app.get('/api', (req, res) => {
     }
 
     // Trả về dữ liệu JSON từ file
-    res.json(JSON.parse(data));
+    return res.json(JSON.parse(data));
   });
 });
 
