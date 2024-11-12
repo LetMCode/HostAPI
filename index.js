@@ -126,7 +126,7 @@ app.delete('/api/cartUser/:id', (req, res) => {
       return res.status(500).json({ error: 'Invalid cartUser format in JSON file' });
     }
 
-    // Tìm vị trí của item đầu tiên có id khớp
+    // Tìm vị trí của item đầu tiên có 
     const index = jsonData.cartUser.findIndex(item => item.id == id);
 
     // Nếu không tìm thấy item để xóa
